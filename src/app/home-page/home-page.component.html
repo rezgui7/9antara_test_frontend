@@ -1,0 +1,70 @@
+<!-- header.component.html -->
+
+<div id="header">
+    <img id="logo" src="assets/LogoBridge.png" alt="Your Logo">
+</div>
+  
+  <div id="main-content">
+    <img id="main-image" src="assets/teams.jpg" alt="Main Image">
+    <div id="text">Improve your skills
+        on your own to prepare
+        for a better future</div>
+    <button id="button">Register now</button>
+  </div>
+  <div id="courses-section">
+    <h2>Discover Our Courses</h2>
+    <button id="view-more-button">View More</button>
+  </div>
+
+
+<!-- header.component.html -->
+
+<div class="container d-flex justify-content-center">
+    <!-- Other sections... -->
+  
+    <div class="product-main">
+      <div class="product-grid">
+        <div class="row justify-content-center">
+          <div *ngFor="let p of courseList1" class="col-12 col-sm-6 col-md-4">
+            <div class="custom-card mb-3">
+              <img src="assets/R.jpeg" class="card-img-top" alt="..." style="max-height: 200px;">
+              <div class="card-body">
+                <h5 class="card-title">{{p.courseName}}</h5>
+                <p class="card-description">{{p.description}}</p>
+                <p class="card-text">{{p.price}}</p>
+                <a class="btn btn-primary">More Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Section -->
+  <div class="container1 d-flex justify-content-center mt-5">
+    <div class="contact-section">
+      <h2>Contact Us</h2>
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Your Name">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" placeholder="Your Email">
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </div>
+  
+  
+  <br>  
+  <br>
+    <br>
+      <br>
