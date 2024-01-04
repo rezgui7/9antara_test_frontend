@@ -5,15 +5,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FileHandle } from 'src/_model/file-handle.model';
-import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-course',
-  templateUrl: './add-course.component.html',
-  styleUrls: ['./add-course.component.css']
+  selector: 'app-udpate-course',
+  templateUrl: './udpate-course.component.html',
+  styleUrls: ['./udpate-course.component.css']
 })
-
-export class AddCourseComponent implements OnInit {
+export class UdpateCourseComponent implements OnInit {
+  id:any;
 
   course:Course={
     idCourses:0,
@@ -24,17 +24,30 @@ export class AddCourseComponent implements OnInit {
 
   }
 
-  constructor(private http:ServiceService ,private sanitizer: DomSanitizer){}
+  constructor(      private route:ActivatedRoute,
+    private router:Router,
+    private http:ServiceService ,private sanitizer: DomSanitizer){}
 
   ngOnInit(): void {
-    
-  }
-  addCourse(courseForm : NgForm){
-    const courseFormData = this.prepareFormData(this.course);
-    courseForm.reset();
+    this.id = this.route.snapshot.params['id'];
+   console.log(this.id);
+   this.http.getCourseById(this.id)
+   .subscribe(data =>{
+   
 
+    console.log(data);
+    
+
+    this.course=data;
+    
+  }, error => console.log(error));
+  
+  }
+  updateCourse(courseForm : NgForm){
+    const courseFormData = this.prepareFormData(this.course);
+    
         this.course.images=[];
-    this.http.addC(courseFormData).subscribe(
+    this.http.updateC(courseFormData).subscribe(
       (res:Course)=>{
         
         console.log(res);
@@ -44,8 +57,19 @@ export class AddCourseComponent implements OnInit {
       }
     );
     console.log(this.course);
+    
   }
+  
+goToCourseList(){
+ this.router.navigate(['admin/dashboard']);
+}
 
+
+
+  delete(id:any){
+    this.http.deleteCourse(id).subscribe(data=>console.log(data));
+    location.reload();
+  }
   prepareFormData(course:Course): FormData{
     const formData =new FormData();
     formData.append(
@@ -87,4 +111,3 @@ export class AddCourseComponent implements OnInit {
   }
 
 }
-

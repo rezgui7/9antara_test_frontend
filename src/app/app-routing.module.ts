@@ -5,6 +5,7 @@ import { AllTemplateAdminComponent } from './all-template-admin/all-template-adm
 import { AddCourseComponent } from './add-course/add-course.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AllTemplateUserComponent } from './all-template-user/all-template-user.component';
+import { UdpateCourseComponent } from './udpate-course/udpate-course.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path:'addNewCourse',
         component:AddCourseComponent
+      },
+      {
+        path:'updateCourse',
+        component:UdpateCourseComponent
       }
     ]
   },
@@ -30,7 +35,7 @@ const routes: Routes = [
         component:HomePageComponent
       }
     ]
-    }
+  }
 ];
 
 @NgModule({

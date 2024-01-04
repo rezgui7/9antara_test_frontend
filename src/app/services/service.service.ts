@@ -29,4 +29,9 @@ export class ServiceService {
   addC(t:FormData){
     return this.http.post<Course>(this.userUrl+'addNewCourse' , t);
   }
+  updateC(t:FormData){
+    return this.http.put<Course>(this.userUrl+'updateNewCourses' , t);
+  }
+
+  
 }

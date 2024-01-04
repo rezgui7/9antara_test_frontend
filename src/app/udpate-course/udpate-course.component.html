@@ -1,0 +1,75 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container mt-5">
+    <div class="card p-2">
+
+        <div class="row">
+            <div class="col-6">
+
+
+                
+                <form #courseForm="ngForm" (ngSubmit)="updateCourse(courseForm)">
+                    <div class="form-outline mb-4">
+                        <input class="form-control" id="form1Example1" [(ngModel)]="course.courseName" name="courseName" />
+                        <label class="form-label" for="form1Example1">Course Name</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input class="form-control" id="form1Example2" [(ngModel)]="course.discription" name="discription"/>
+                        <label class="form-label" for="form1Example1">Discription</label>
+                    </div>
+                    
+                    <div class="form-outline mb-4">
+                        <input class="form-control" id="form1Example5" [(ngModel)]="course.price" name="price"/>
+                        <label class="form-label" for="form1Example1">Price</label>
+                    </div>
+                    
+
+                    <div align="end">
+                        <button type="button" class="btn btn-outline-dark" (click)="clear(courseForm)">Clear</button>
+                        <button type="submit" class="btn btn-outline-success">Update Course</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+            <div class="col-6">
+                <div>
+                    
+                    <div class="dropzone" appDrag (files)="fileDropped($event)">
+                        <div class="text-wrapper">
+                            <div class="centred">Drag your file or <a class="browse-button" (click)="selectFile.click()">browse</a> a file</div>
+                            
+                        </div>
+                    </div>
+                    <input style="display: none;" type="file" value="select" #selectFile
+                    (change)="onFileSelected($event)">
+                </div>
+                <div class="mt-5">
+                    <div class="row">
+                        <mat-grid-list cols="1" rowHeight="1:1">
+                            <mat-grid-tile *ngFor="let file of course.images; let i = index;">
+                                <div style="position: relative;">
+                                    <span class="btn-remove-image" (click)="removeImages(i)">x</span>
+                                    <img [src]="file.url" width="100px" height="100px">
+                                </div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

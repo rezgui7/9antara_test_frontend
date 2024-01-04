@@ -39,8 +39,8 @@
                     </ng-container>
                     <ng-template #actionsCell>
                         <div class="actions-buttons">
-                            <a class="btn btn-outline-primary" (click)="UpdateProject(element.idCourses)">Update</a>
-                            <button type="button" class="btn btn-outline-danger" (click)="delete(element.idCourses)">Delete</button>
+                            <a class="btn btn-outline-primary" (click)="UpdateCourse(element.idCourses)">Update</a>
+                            <button type="button" class="btn btn-outline-danger" (click)="openDeleteConfirmationDialog(element.idCourses)">Delete</button>
                         </div>
                     </ng-template>
                 </mat-cell>

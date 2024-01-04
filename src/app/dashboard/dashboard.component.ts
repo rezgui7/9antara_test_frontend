@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponentComponent } from '../confirm-dialog-component/confirm-dialog-component.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +27,7 @@ export class DashboardComponent implements OnInit {
   dataSource = new MatTableDataSource<any>(this.courseList1);
   dataSource2 = new MatTableDataSource<any>(this.courseList1);
 
-  constructor(private r:Router, private http:ServiceService){}
+  constructor(private r:Router, private http:ServiceService,public dialog: MatDialog){}
 
   ngOnInit(): void {
   // Set the MatSort to your data source
@@ -54,18 +56,24 @@ export class DashboardComponent implements OnInit {
   }
   
 
-  UpdateProject(id:any){
-    this.r.navigate(['/admin/updateProject',{id:id}]);
+  UpdateCourse(id:any){
+    this.r.navigate(['/admin/updateCourse',{id:id}]);
   }
-  CreateProject(id:any){
-    this.r.navigate(['admin/createSProject',{id:id}]);
-  }
-  viewDetails(id:any){
-    this.r.navigate(['admin/projectDetails',{id:id}]);
-  }
-  delete(id:any){
+  
+  delete2(id:any){
     this.http.deleteCourse(id).subscribe(data=>console.log(data));
     location.reload();
+  }
+  delete(id: any): void {
+    this.http.deleteCourse(id).subscribe(
+      data => {
+        console.log('Course deleted successfully:', data);
+        location.reload();
+      },
+      error => {
+        console.error('Error deleting course:', error);
+      }
+    );
   }
   
   
@@ -86,6 +94,24 @@ export class DashboardComponent implements OnInit {
       // Your existing filter logic here
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-
+    
 }
+openDeleteConfirmationDialog(id: any): void {
+  const dialogRef = this.dialog.open(ConfirmDialogComponentComponent, {
+    width: '350px',
+    data: {
+      title: 'Confirm Delete',
+      message: 'Are you sure you want to delete this item?',
+    },
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      // User confirmed delete, perform delete operation
+      this.delete(id);
+    }
+    // If result is false, user canceled delete (do nothing in that case)
+  });
+}
+
 }

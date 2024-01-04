@@ -22,6 +22,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AllTemplateUserComponent } from './all-template-user/all-template-user.component';
+import { UdpateCourseComponent } from './udpate-course/udpate-course.component';
+import { ConfirmDialogComponentComponent } from './confirm-dialog-component/confirm-dialog-component.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { AllTemplateUserComponent } from './all-template-user/all-template-user.
     SideComponent,
     AddCourseComponent,
     HomePageComponent,
-    AllTemplateUserComponent
+    AllTemplateUserComponent,
+    UdpateCourseComponent,
+    ConfirmDialogComponentComponent
   ],
   imports: [
     BrowserModule,
