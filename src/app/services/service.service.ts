@@ -23,6 +23,9 @@ export class ServiceService {
   updateCourse(p:Course): Observable<Object>{
     return this.http.put(this.userUrl+'updateCourses', p);
   }
+  updateImgs(p:Course): Observable<Object>{
+    return this.http.put(this.userUrl+'updateImgs', p);
+  }
   deleteCourse(id:number){
     return this.http.delete(this.userUrl+'deleteCourses'+`/${id}`);
   }
@@ -30,7 +33,7 @@ export class ServiceService {
     return this.http.post<Course>(this.userUrl+'addNewCourse' , t);
   }
   updateC(t:FormData){
-    return this.http.put<Course>(this.userUrl+'updateNewCourses' , t);
+    return this.http.put<Course>(this.userUrl+'updateNewCourse' , t);
   }
 
   

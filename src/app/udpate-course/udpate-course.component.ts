@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FileHandle } from 'src/_model/file-handle.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Course2 } from 'src/_model/Courses2.module';
 
 @Component({
   selector: 'app-udpate-course',
@@ -24,6 +25,11 @@ export class UdpateCourseComponent implements OnInit {
 
   }
 
+  img:FileHandle={
+    file:new File(["file content"], "example.txt", { type: "text/plain" }),
+    url:"any"
+  }
+
   constructor(      private route:ActivatedRoute,
     private router:Router,
     private http:ServiceService ,private sanitizer: DomSanitizer){}
@@ -31,21 +37,20 @@ export class UdpateCourseComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
    console.log(this.id);
+
    this.http.getCourseById(this.id)
    .subscribe(data =>{
-   
-
     console.log(data);
-    
+    this.course = this.mapDataToCourse(data);
+    console.log(this.course);
 
-    this.course=data;
-    
   }, error => console.log(error));
   
   }
   updateCourse(courseForm : NgForm){
     const courseFormData = this.prepareFormData(this.course);
-    
+    courseForm.reset();
+
         this.course.images=[];
     this.http.updateC(courseFormData).subscribe(
       (res:Course)=>{
@@ -70,7 +75,7 @@ goToCourseList(){
     this.http.deleteCourse(id).subscribe(data=>console.log(data));
     location.reload();
   }
-  prepareFormData(course:Course): FormData{
+  prepareFormData(course:any): FormData{
     const formData =new FormData();
     formData.append(
       'course',
@@ -86,6 +91,7 @@ goToCourseList(){
     }
     return formData;
   }
+  
 
   onFileSelected(event:any){
     console.log(event);
@@ -108,6 +114,23 @@ goToCourseList(){
   }
   clear(projectForm:NgForm){
     projectForm.reset();
+  }
+  private mapDataToCourse(data: any): Course {
+    // Adaptation des données avant de les assigner au modèle Course
+    const images: FileHandle[] = data.images.map((image: any) => {
+      return {
+        file: new File([image.imageData], image.name, { type: image.type }),
+        url: this.sanitizer.bypassSecurityTrustUrl(`data:${image.type};base64,${image.imageData}`)
+      };
+    });
+  
+    return {
+      idCourses: data.idCourses,
+      courseName: data.courseName,
+      discription: data.discription,
+      price: data.price,
+      images: images
+    };
   }
 
 }
